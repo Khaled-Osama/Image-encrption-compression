@@ -33,13 +33,18 @@ namespace ImageQuantization
 
         private void btnGaussSmooth_Click(object sender, EventArgs e)
         {
-            double sigma = double.Parse(txtGaussSigma.Text);
+            /*double sigma = double.Parse(txtSeed.Text);
             int maskSize = (int)nudMaskSize.Value ;
             ImageMatrix = ImageOperations.GaussianFilter1D(ImageMatrix, maskSize, sigma);
-            ImageOperations.DisplayImage(ImageMatrix, pictureBox2);
+            ImageOperations.DisplayImage(ImageMatrix, pictureBox2);*/
         }
 
-       
-       
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string seed = txtSeed.Text.ToString();
+            int tapPosition = int.Parse(txtTapPosition.Text.ToString());
+            RGBPixel[,] encryptedImage = ImageOperations.image_encryption(ImageMatrix, seed, tapPosition);
+            ImageOperations.DisplayImage(encryptedImage, pictureBox2);
+        }
     }
 }

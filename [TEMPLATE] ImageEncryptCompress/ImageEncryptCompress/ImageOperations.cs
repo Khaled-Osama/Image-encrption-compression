@@ -244,6 +244,35 @@ namespace ImageQuantization
             return Filtered;
         }
 
+        public static RGBPixel[,] image_encryption(RGBPixel[,] image, string initialSeed, int tapPos)
+        {
+            int width = GetWidth(image);
+            int height = GetHeight(image);
+            int seedLength = initialSeed.Length;
+            RGBPixel[,] retImage = new RGBPixel[height, width];
+            Int64 seed = Convert.ToInt32(initialSeed, 2);
+
+            for(int i = 0; i < height; i++)
+            {
+                for(int j = 0; j < width; j++)
+                {
+                    RGBPixel currPixel = image[i, j];
+
+                    currPixel.red ^= LFSR.nShift(ref seed, tapPos, seedLength);
+                    
+                    currPixel.green ^= LFSR.nShift(ref seed, tapPos, seedLength);
+                    
+                    currPixel.blue ^= LFSR.nShift(ref seed, tapPos, seedLength);
+                    
+                    retImage[i, j] = currPixel;
+                }
+
+            }
+            LFSR.nShift(ref seed, tapPos, seedLength);
+            
+            return retImage;
+        }
+
 
     }
 }
