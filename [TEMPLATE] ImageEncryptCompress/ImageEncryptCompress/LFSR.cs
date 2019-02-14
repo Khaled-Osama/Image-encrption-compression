@@ -24,7 +24,7 @@ namespace ImageQuantization
             Byte tapBit = (Byte)((seed >> tapPos) & 1);
             Byte fBit = 0;
 
-            if ((int)Math.Log(seed, 2) == length - 1)
+            if ( ( 1 << (length-1) ) <= seed)
             {
                 fBit = 1;
             }

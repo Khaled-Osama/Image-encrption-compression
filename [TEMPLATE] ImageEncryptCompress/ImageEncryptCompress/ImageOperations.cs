@@ -272,7 +272,10 @@ namespace ImageQuantization
             
             return retImage;
         }
-
+        public static RGBPixel[,] image_decryption(RGBPixel[,]image, string initialSeed, int tapPos)
+        {
+            return image_encryption(image, initialSeed, tapPos);
+        }
 
     }
 }

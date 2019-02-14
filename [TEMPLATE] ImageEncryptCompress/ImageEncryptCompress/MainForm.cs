@@ -15,7 +15,8 @@ namespace ImageQuantization
             InitializeComponent();
         }
 
-        RGBPixel[,] ImageMatrix;
+        RGBPixel[,] ImageMatrix, ImageMatrix2;
+        bool encryption = false;
 
         private void btnOpen_Click(object sender, EventArgs e)
         {
@@ -41,10 +42,22 @@ namespace ImageQuantization
 
         private void button1_Click(object sender, EventArgs e)
         {
+            encryption = !encryption;
+
             string seed = txtSeed.Text.ToString();
             int tapPosition = int.Parse(txtTapPosition.Text.ToString());
-            RGBPixel[,] encryptedImage = ImageOperations.image_encryption(ImageMatrix, seed, tapPosition);
-            ImageOperations.DisplayImage(encryptedImage, pictureBox2);
+            if (encryption)
+            {
+                ImageMatrix2 = ImageOperations.image_encryption(ImageMatrix, seed, tapPosition);
+                button1.Text = "Decryption";
+            }
+            else
+            {
+                ImageMatrix2 = ImageOperations.image_decryption(ImageMatrix2, seed, tapPosition);
+                button1.Text = "Encryption";
+            }
+            
+            ImageOperations.DisplayImage(ImageMatrix2, pictureBox2);
         }
     }
 }
